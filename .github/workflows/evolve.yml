@@ -1,0 +1,37 @@
+name: evolve
+
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  evolve-slugify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Run evolver (slugify)
+        run: |
+          python -m chaos.evolver slugify --epochs 1500 --seed $RANDOM --write || true
+      - name: Create PR if changes
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "chore(evolve): propose updated rules for slugify"
+          commit-message: "chore(evolve): update chaos/rules.json via evolver"
+          body: |
+            This PR was created automatically by the evolver workflow.
+
+            - Command: `python -m chaos.evolver slugify --epochs 1500 --seed $RANDOM --write`
+            - Guardrails: CI must remain green; dataset tests serve as the safety net.
+          branch: "evolver/propose-rules"
+          delete-branch: true
+
