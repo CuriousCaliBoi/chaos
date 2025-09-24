@@ -12,6 +12,7 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - GitHub Actions CI to run unit tests on pushes and pull requests.
 - Dataset-backed tests for `slugify()` (`chaos/datasets/slugify_cases.json`).
 - Minimal evolver CLI (`python -m chaos.evolver slugify`) that searches rule configs and logs artifacts; optional `--write` to propose `chaos/rules.json`.
+ - Nightly workflow to auto-propose evolved rules via PR (`.github/workflows/evolve.yml`).
 
 ## [0.0.1] - 2025-09-24
 ### Added

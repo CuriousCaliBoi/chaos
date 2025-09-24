@@ -19,6 +19,9 @@ Evolver (Darwinian Gödel Machine inspired)
 - To adopt the candidate rules, rerun with `--write` and review the generated `chaos/rules.json` + tests.
 - Dataset for evaluation lives at `chaos/datasets/slugify_cases.json`; extend it to steer behavior.
 
+Automation
+- Nightly GitHub Action (`.github/workflows/evolve.yml`) runs the evolver and opens a PR if `chaos/rules.json` changes while tests stay green.
+
 Contributing
 - Use test-first patches: add or tighten a failing test, then make it pass.
 - Update `CHANGELOG.md` for user-visible changes.
