@@ -1,0 +1,20 @@
+{
+  "Hello World": "hello-world",
+  "  multiple   spaces  ": "multiple-spaces",
+  "__a__b__": "a-b",
+  "S&P 500": "sp-500",
+  "Café déjà vu": "cafe-deja-vu",
+  "naïve façade": "naive-facade",
+  "A—B – C": "a-b-c",
+  "--already-slug--": "already-slug",
+  "C# & .NET Core": "c-net-core",
+  "AT&T's 5G": "atts-5g",
+  "100% free!!!": "100-free",
+  " - leading and trailing - ": "leading-and-trailing",
+  "中文測試": "",
+  "coöperate": "cooperate",
+  "foo_bar baz": "foo-bar-baz",
+  "hello—world – test": "hello-world-test",
+  "rock & roll": "rock-roll"
+}
+

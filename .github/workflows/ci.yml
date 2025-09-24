@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Verify CHANGELOG updated when code changes
+        if: github.event_name == 'pull_request'
+        run: |
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.sha }}"
+          echo "Base: $BASE_SHA\nHead: $HEAD_SHA"
+          CHANGED=$(git diff --name-only "$BASE_SHA".."$HEAD_SHA")
+          echo "$CHANGED" | sed 's/^/- /'
+          # Consider these code paths as requiring changelog updates
+          if echo "$CHANGED" | grep -Eq '^(chaos/|pyproject.toml|setup.py)'; then
+            if ! echo "$CHANGED" | grep -q '^CHANGELOG.md$'; then
+              echo "Code changed but CHANGELOG.md not updated. Please edit CHANGELOG.md." >&2
+              exit 1
+            fi
+          fi
+      - name: Run unit tests
+        run: |
+          python -m unittest discover -s tests -p 'test*.py' -v
