@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[pre-push] Running unit tests..."
+python -m unittest discover -s tests -p 'test*.py' -v
+echo "[pre-push] Tests passed. Pushing allowed."
+
