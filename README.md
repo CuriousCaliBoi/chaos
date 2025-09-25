@@ -22,6 +22,10 @@ Evolver (Darwinian Gödel Machine inspired)
 Automation
 - Nightly GitHub Action (`.github/workflows/evolve.yml`) runs the evolver and opens a PR if `chaos/rules.json` changes while tests stay green.
 
+Fuzzer (dataset seeding)
+- Generate suggestions: `python -m chaos.fuzz slugify --count 200 --seed 123`
+- Append top-N new cases to the dataset: `python -m chaos.fuzz slugify --count 500 --seed 42 --append 20`
+
 Contributing
 - Use test-first patches: add or tighten a failing test, then make it pass.
 - Update `CHANGELOG.md` for user-visible changes.

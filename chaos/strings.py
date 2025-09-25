@@ -10,7 +10,7 @@ _DASH_CHARS = "\u2012\u2013\u2014\u2015\u2212\u2043\uFE58\uFE63\uFF0D"
 _DASH_RE = re.compile(f"[{_DASH_CHARS}]")
 
 
-def slugify(text: Any) -> str:
+def slugify(text: Any, *, strict: bool = False, max_len: int = 64) -> str:
     """Convert arbitrary text to a URL-safe slug.
 
     Rules:
@@ -47,5 +47,13 @@ def slugify(text: Any) -> str:
 
     # Trim hyphens
     s = s.strip("-")
+
+    if strict:
+        # Enforce maximum length and re-trim
+        if max_len > 0 and len(s) > max_len:
+            s = s[:max_len].strip("-")
+        # Enforce non-empty fallback
+        if not s:
+            s = "n-a"
 
     return s
